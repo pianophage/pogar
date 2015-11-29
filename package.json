@@ -1,0 +1,23 @@
+{
+  "name": "pogar",
+  "version": "0.1.0",
+  "description": "Open source Agar.io server",
+  "main": "src/index.js",
+  "dependencies": {
+    "ws": "0.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pianophage/pogar"
+  },
+  "author": "Devin Ryan <devin@forairan.com> (http://devin.codes/)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/pianophage/pogar/issues"
+  },
+  "homepage": "https://github.com/pianophage/pogar"
+}
