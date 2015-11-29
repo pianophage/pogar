@@ -3,8 +3,8 @@
 'use strict';
 
 let readline = require('readline'),
-    Commands = require('./modules/CommandList'),
-    GameServer = require('./GameServer');
+    Commands = require('./lib/modules/CommandList'),
+    GameServer = require('./lib/GameServer');
 
 // Console interface using readline.
 let rl = null;
