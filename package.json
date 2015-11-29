@@ -1,7 +1,7 @@
 {
   "name": "pogar",
   "version": "0.1.0",
-  "description": "Open source Agar.io server",
+  "description": "An open source agar.io server, copied from OgarProject/Ogar.",
   "main": "src/index.js",
   "dependencies": {
     "ws": "0.8.0"
@@ -14,7 +14,7 @@
     "type": "git",
     "url": "https://github.com/pianophage/pogar"
   },
-  "author": "Devin Ryan <devin@forairan.com> (http://devin.codes/)",
+  "author": "pianophage <cc.flags@gmail.com> (http://github.com/pianophage)",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/pianophage/pogar/issues"
