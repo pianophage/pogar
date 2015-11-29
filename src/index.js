@@ -1,11 +1,16 @@
 // index.js - Entry point. From the base directory, do 'node src/index.js' to run pogar.
 
-// Imports
-var Commands = require('./modules/CommandList');
-var GameServer = require('./GameServer');
+'use strict';
+
+let readline = require('readline'),
+    Commands = require('./modules/CommandList'),
+    GameServer = require('./GameServer');
+
+// Console interface using readline.
+let rl = null;
 
 // Show the console by default.
-var shouldShowConsole = true;
+let shouldShowConsole = true;
 
 // Handle arguments
 process.argv.forEach(function (arg) {
@@ -22,46 +27,56 @@ process.argv.forEach(function (arg) {
 });
 
 // Run Ogar
-var gameServer = new GameServer();
+let gameServer = new GameServer();
 gameServer.start();
 // Add command handler
 gameServer.commands = Commands.list;
-// Initialize the server console
+
+// Initialize the server console.
 if (shouldShowConsole) {
-    var readline = require('readline');
-    var in_ = readline.createInterface({ input: process.stdin, output: process.stdout });
-    setTimeout(prompt, 100);
+    rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+
+    rl.on('line', processCommand);
+
+    rl.setPrompt('(pogar) ');
+    rl.prompt();
 }
 
+// Process a command entered on the console.
+function processCommand(line) {
+    line = line.trim();
 
-// Console functions
+    if (line) {
+        if (line === 'quit' || line === 'q') {
+            rl.close();
 
-function prompt() {
-    in_.question('>', function(str) {
-    	parseCommands(str);
-        return prompt(); // Too lazy to learn async
-    });
-};
+            // TODO: we can't quit 'cuz the game server is holding us up, I think.
 
-function parseCommands(str) {
-    // Log the string
-    gameServer.log.onCommand(str);
+            return;
+        }
 
-    // Don't process ENTER
-    if (str === '')
-        return;
+        // Log the line.
+        gameServer.log.onCommand(line);
 
-    // Splits the string
-    var split = str.split(' ');
+        // Splits the string
+        let split = line.split(' ');
 
-    // Process the first string value
-    var first = split[0].toLowerCase();
+        // Process the first string value
+        let first = split[0].toLowerCase();
 
-    // Get command function
-    var execute = gameServer.commands[first];
-    if (typeof execute != 'undefined') {
-        execute(gameServer,split);
+        // Get command function
+        let execute = gameServer.commands[first];
+        if (typeof execute !== 'undefined') {
+            execute(gameServer, split);
+        } else {
+            console.log('error: unknown command \'' + first + '\'');
+        }
     } else {
-        console.log('[Console] Invalid Command!');
+        // Ignore blank lines.
     }
+
+    rl.prompt();
 };
